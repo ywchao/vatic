@@ -429,7 +429,7 @@ function Track(player, color, position)
     this.journal.mark(this.player.job.start,
         new Position(position.xtl, position.ytl,
                      position.xbr, position.ybr, 
-                     false, true, []));
+                     true, true, []));
 
     this.journal.mark(this.player.frame, position);
 

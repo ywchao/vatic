@@ -442,6 +442,9 @@ class DumpCommand(Command):
         interpolated = []
         for track in response:
             path = vision.track.interpolation.LinearFill(track.boxes)
+            # handle a glitch in LinearFill after merging outside and occluded
+            for box in path:
+                box.occluded = box.occluded or box.lost
             tracklet = DumpCommand.Tracklet(track.label, track.paths,
                                             path, track.workers)
             interpolated.append(tracklet)
