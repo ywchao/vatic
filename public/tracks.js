@@ -494,27 +494,27 @@ function Track(player, color, position)
         var height = this.player.job.height;
         var pos = this.pollposition();
 
-        if (pos.xtl > width)
+        if (pos.xtl > width -1 - pos.width/2)
         {
-            pos = new Position(width - pos.width, pos.ytl, width, pos.ybr);
+            pos = new Position(width - 1 - pos.width/2, pos.ytl, width - 1 + pos.width/2, pos.ybr);
         }
-        if (pos.ytl > height)
+        if (pos.ytl > height - 1 - pos.height/2)
         {
-            pos = new Position(pos.xtl, height - pos.height, pos.xbr, height);
+            pos = new Position(pos.xtl, height - 1 - pos.height/2, pos.xbr, height - 1 + pos.height/2);
         }
-        if (pos.xbr < 0)
+        if (pos.xbr < pos.width/2)
         {
-            pos = new Position(0, pos.ytl, pos.width, pos.ybr);
+            pos = new Position(0 - pos.width/2, pos.ytl, 0 + pos.width/2, pos.ybr);
         }
-        if (pos.ybr < 0)
+        if (pos.ybr < pos.height/2)
         {
-            pos = new Position(pos.xtl, 0, pos.xbr, pos.height);
+            pos = new Position(pos.xtl, 0 - pos.height/2, pos.xbr, 0 + pos.height/2);
         }
 
-        var xtl = Math.max(pos.xtl, 0);
-        var ytl = Math.max(pos.ytl, 0); 
-        var xbr = Math.min(pos.xbr, width - 1);
-        var ybr = Math.min(pos.ybr, height - 1);
+        var xtl = Math.max(pos.xtl, 0 - pos.width/2);
+        var ytl = Math.max(pos.ytl, 0 - pos.height/2);
+        var xbr = Math.min(pos.xbr, width - 1 + pos.width/2);
+        var ybr = Math.min(pos.ybr, height - 1 + pos.height/2);
 
         var fpos = new Position(xtl, ytl, xbr, ybr);
         fpos.occluded = pos.occluded;
