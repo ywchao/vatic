@@ -147,7 +147,7 @@ function TrackObjectUI(button, container, videoframe, job, player, tracks)
         html += "<ul>";
         for (var i in this.job.labels)
         {
-            html += "<li>" + this.job.labels[i] + "</li>";
+            html += "<li>" + this.job.labels[i].replace(/_/g, " ") + "</li>";
         }
         html += "</ul>";
 
@@ -288,7 +288,7 @@ function TrackObject(job, player, container, color)
         {
             if (this.job.selected[i] == false)
             {
-                html += "<li>" + this.job.labels[i] + "</li>";
+                html += "<li>" + this.job.labels[i].replace(/_/g, " ") + "</li>";
             }
         }
         html += "</ul>";
@@ -328,7 +328,7 @@ function TrackObject(job, player, container, color)
                 if (job.selected[i] == false)
                 {
                     var id = "classification" + this.id + "_" + i;
-                    html += "<div class='label'><input type='radio' name='classification" + this.id + "' id='" + id + "'> <label for='" + id + "'>" + job.labels[i] + "</label></div>";
+                    html += "<div class='label'><input type='radio' name='classification" + this.id + "' id='" + id + "'> <label for='" + id + "'>" + job.labels[i].replace(/_/g, " ") + "</label></div>";
                 }
             }
 
@@ -362,7 +362,7 @@ function TrackObject(job, player, container, color)
         this.track.label = labelid;
 
         this.headerdetails = $("<div style='float:right;'></div>").appendTo(this.handle);
-        this.header = $("<p class='trackobjectheader'><strong>" + this.job.labels[this.label] + "</strong></p>").appendTo(this.handle).hide().slideDown();
+        this.header = $("<p class='trackobjectheader'><strong>" + this.job.labels[this.label].replace(/_/g, " ") + "</strong></p>").appendTo(this.handle).hide().slideDown();
         //this.opencloseicon = $('<div class="ui-icon ui-icon-triangle-1-e"></div>').prependTo(this.header);
         this.details = $("<div class='trackobjectdetails'></div>").appendTo(this.handle).hide();
 
@@ -485,7 +485,7 @@ function TrackObject(job, player, container, color)
         this.headerdetails.append("<div style='float:right;'><div class='ui-icon ui-icon-image' id='trackobject" + this.id + "tooltip' title='Show preview of track'></div></div>");
 
         $("#trackobject" + this.id + "delete").click(function() {
-            if (window.confirm("Delete the " + me.job.labels[me.label] + " " + (me.id + 1) + " track? If the object just left the view screen, click the \"Outside of view frame\" check box instead."))
+            if (window.confirm("Delete the " + me.job.labels[me.label].replace(/_/g, " ") + " track? If the object just left the view screen, click the \"Outside of view frame\" check box instead."))
             {
                 me.remove();
                 me.job.selected[me.label] = false;
