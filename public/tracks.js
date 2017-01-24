@@ -81,11 +81,8 @@ function BoxDrawer(container)
         {
             if (!this.drawing)
             {
-                this.startdrawing(xc, yc);
-            }
-            else
-            {
-                this.finishdrawing(xc, yc);
+                this.startdrawing(xc - 10, yc - 10);
+                this.finishdrawing(xc + 10, yc + 10);
             }
         }
     }
@@ -306,17 +303,6 @@ function TrackCollection(player, job)
         for (var i in this.tracks)
         {
             this.tracks[i].draggable(value);
-        }
-    }
-
-    /*
-     * Changes the resize functionality. If true, allow resize, otherwise disable.
-     */
-    this.resizable = function(value)
-    {
-        for (var i in this.tracks)
-        {
-            this.tracks[i].resizable(value);
         }
     }
 
@@ -673,12 +659,10 @@ function Track(player, color, position)
         if (value)
         {
             this.handle.draggable("option", "disabled", true);
-            this.handle.resizable("option", "disabled", true);
         }
         else
         {
             this.handle.draggable("option", "disabled", !this.candrag);
-            this.handle.resizable("option", "disabled", !this.canresize);
         }
 
         if (value)
@@ -700,39 +684,17 @@ function Track(player, color, position)
         {
             this.handle = $('<div class="boundingbox"><div class="boundingboxtext"></div></div>');
             this.handle.css("border-color", this.color);
+            this.handle.css("border-radius", "50%");
             var fill = $('<div class="fill"></div>').appendTo(this.handle);
             fill.css("background-color", this.color);
+            var center = $('<div class="ccenter"></div>').appendTo(this.handle);
+            center.css("background-color", this.color);
             this.player.handle.append(this.handle);
 
             this.handle.children(".boundingboxtext").hide().css({
                 "border-color": this.color,
                 //"color": this.color
                 });
-
-            this.handle.resizable({
-                handles: "n,w,s,e",
-                autoHide: true,
-                ghost: true, /* need to fix this bug soon */
-                start: function() {
-                    player.pause();
-                    me.notifystartupdate();
-                    //me.triggerinteract();
-                    for (var i in me.onmouseover)
-                    {
-                        me.onmouseover[i]();
-                    }
-                },
-                stop: function() {
-                    me.fixposition();
-                    me.recordposition();
-                    me.notifyupdate();
-                    eventlog("resizable", "Resize a box");
-                    me.highlight(false);
-                },
-                resize: function() {
-                    me.highlight(true);
-                }
-            });
 
             this.handle.draggable({
                 start: function() {
@@ -804,6 +766,17 @@ function Track(player, color, position)
             width: (position.width - this.htmloffset) + "px",
             height: (position.height - this.htmloffset) + "px"
         });
+
+        this.handle.children(".ccenter").css({
+            position: "absolute",
+            width: "6px",
+            height: "6px",
+            borderRadius: "50%",
+            marginLeft: "-3px",
+            marginTop: "-3px",
+            top: "50%",
+            left: "50%",
+        });
     }
 
     this.triggerinteract = function() 
@@ -835,25 +808,6 @@ function Track(player, color, position)
             this.handle.draggable("option", "disabled", true);
         }
     }
-
-    this.resizable = function(value)
-    {
-        if (this.deleted)
-        {
-            return;
-        }
-
-        this.canresize = value;
-
-        if (value && !this.locked &&!this.drawingnew)
-        {
-            this.handle.resizable("option", "disabled", false);
-        }
-        else
-        {
-            this.handle.resizable("option", "disabled", true);
-        }
-    }   
 
     this.visible = function(value)
     {
