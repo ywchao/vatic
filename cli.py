@@ -80,7 +80,17 @@ class formatframes(Command):
         except:
             pass
         extension = ".{0}".format(args.extension)
-        files = os.listdir(args.video)
+        if args.video[-4:] == '.txt':
+            lines = [line.strip() for line in open(args.video)]
+            if not lines:
+                print "Empty file: {0}".format(args.video)
+                return
+            files = [os.path.basename(x) for x in lines]
+            dirname = list(set([os.path.dirname(x) for x in lines]))
+            assert len(dirname) == 1
+            args.video = dirname[0]
+        else:
+            files = os.listdir(args.video)
         files = (x for x in files if x.endswith(extension))
         files = [(int(x.split(".")[0]), x) for x in files]
         files.sort()
