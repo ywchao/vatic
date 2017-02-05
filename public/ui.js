@@ -29,7 +29,7 @@ function ui_setup(job)
 
     $("<table>" + 
         "<tr>" +
-            "<td><div id='instructionsbutton' class='button'>Instructions</div><div id='instructions'>Annotate every object, even stationary and obstructed objects, for the entire video.</td>" +
+            "<td><div id='instructionsbutton' class='button'>Instructions</div><div id='instructions'>Annotate every object of interest, even stationary and obstructed objects, for the entire video.</td>" +
             "<td><div id='topbar'></div></td>" +
         "</tr>" +
         "<tr>" +

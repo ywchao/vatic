@@ -147,7 +147,7 @@ function TrackObjectUI(button, container, videoframe, job, player, tracks)
             me.stopdrawing(position);
         });
 
-        var html = "<p>In this video, please track all of these objects:</p>";
+        var html = "<p style=margin-bottom:-0.2cm><strong>Objects of intereset</strong></p><p>In this video, please track all of these objects:</p>";
         html += "<ul>";
         for (var i in this.job.labels)
         {
