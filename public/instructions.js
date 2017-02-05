@@ -1,7 +1,7 @@
 function instructions(job, h)
 {
     h.append("<h1>Important Instructions</h1>");
-    h.append("<p>In this task, we ask you to annotate a video. You are to draw a box around every object of interest and track each object for the entire video. These instructions will give you tips on how to best use our tool.</p>");
+    h.append("<p>In this task, we ask you to annotate a video in a kitchen scene. You are to draw a box around every object of interest and track each object for the entire video. These instructions will give you tips on how to best use our tool.</p>");
 
     h.append("<h2>Crash Course</h2>");
     var str = "<ul>";
@@ -27,11 +27,8 @@ function instructions(job, h)
     h.append(str);
 
     h.append("<h2>Getting Started</h2>");
-    h.append("<img src='box.jpg' align='right'>");
-    h.append("<p>Click the <strong>New Object</strong> button to start annotating your first object. Position your cursor over the view screen to click on the corner of an object of interest. Use the cross hairs to line up your click. Click on another corner to finish drawing the box. The rectangle should tightly and completely enclose the object you are annotating. Resize the box, if necessary, by dragging the edges of the box.</p>");
-
-    h.append("<img src='classify.jpg' align='right'>");
-    h.append("<p>On the right, directly below the New Object button, you will find a colorful box. The box is prompting you to input which type of object you have labeled. Click the correst response.</p>");
+    h.append("<img src='mpii-box.jpg' height='128' align='right'>");
+    h.append("<p>Click the <strong>New Object</strong> button to start annotating your first object. Position your cursor over the view screen to click on the corner of an object of interest. Use the cross hairs to line up your click. Click on another corner to finish drawing the box. The rectangle should tightly and completely enclose the object you are annotating, for instance, the fridge in the right example. Resize the box, if necessary, by dragging the edges of the box.</p>");
 
     if (job.skip > 0)
     {
@@ -51,8 +48,8 @@ function instructions(job, h)
         h.append("<p>Once you have reached the end, you should rewind by pressing the rewind button (next to Play) and repeat this process for every object of interest. You are welcome to annotate multiple objects each playthrough.</p>");
     }
 
-    h.append("<img src='outsideoccluded.jpg' align='right'>");
-    h.append("<p>If an object leaves the screen, mark the <strong>Outside of view frame</strong> checkbox for the corresponding sidebar rectangle. Make sure you click the right button. When you mouse over the controls, the corresponding rectangle will light up in the view screen. Likewise, if the object you are tracking is still in the view frame but the view is obstructed (e.g., inside a car), mark the <strong>Occluded or obstructed</strong> checkbox. When the object becomes visible again, remember to uncheck these boxes. If there are additional checkboxes describing attributes, mark those boxes for the duration that it applies. For example, only mark \"Walking\" when the person is walking.</p>");
+    h.append("<img src='mpii-outsideoccluded.jpg' height='60' align='right'>");
+    h.append("<p>If an object leaves the screen, mark the <strong>Outside of view frame</strong> checkbox for the corresponding sidebar rectangle. Make sure you click the right button. When you mouse over the controls, the corresponding rectangle will light up in the view screen. Likewise, if the object you are tracking is still in the view frame but the view is obstructed (e.g., inside a fridge), mark the <strong>Occluded or obstructed</strong> checkbox. When the object becomes visible again, remember to uncheck these boxes.</p>");
 
     h.append("<p>If there are many objects on the screen, it can become difficult to select the right bounding box. By pressing the lock button <img src='lock.jpg'> on an object's sidebar rectangle, you can prevent changes to that track. Press the lock button again to renable modifications.</p>");
 
@@ -63,38 +60,38 @@ function instructions(job, h)
     h.append("<h2>How We Accept Your Work</h2>");
     h.append("<p>We will hand review your work and we will only accept high quality work. Your annotations are not compared against other workers. Follow these guidelines to ensure your work is accepted:</p>");
 
-    h.append("<h3>Label Every Object</h3>")
-    h.append('<iframe title="YouTube video player" width="560" height="349" src="http://www.youtube.com/embed/H8cMZkz8Kbw?rel=0" frameborder="0" allowfullscreen></iframe>');
+    h.append("<h3>Label Every Object of Interest</h3>")
+    h.append('<iframe title="YouTube video player" width="560" height="349" src="https://www.youtube.com/embed/akaqrtc2cUo?rel=0" frameborder="0" allowfullscreen></iframe>');
     //h.append("<img src='secret.png'>");
     //h.append("<img src='everyobject.jpg'>");
 
     if (job.perobject > 0)
     {
-        h.append("<p>Every object of interest should be labeled for the entire video. The above work was accepted because every object has a box around it. An object is not labeled more than once. Even if the object does not move, you must label it. We will pay you a bonus for every object you annotate.</p>");
+        h.append("<p>Every object of interest should be labeled for the entire video. The above work was accepted because every object of interest (cutting-boards in this example) has a box around it. An object is not labeled more than once. Even if the object does not move, you must label it. We will pay you a bonus for every object you annotate.</p>");
     }
     else
     {
-        h.append("<p>Every object of interest should be labeled for the entire video. The above work was accepted because every object has a box around it. An object is not labeled more than once. Even if the object does not move, you must label it.</p>");
+        h.append("<p>Every object of interest should be labeled for the entire video. The above work was accepted because every object of interest (cutting-boards in this example) has a box around it. An object is not labeled more than once. Even if the object does not move, you must label it.</p>");
     }
 
     h.append("<h3>Boxes Are Tight</h3>");
-    h.append("<table><tr><td><img src='tight-good.jpg'></td><td><img src='tight-bad.jpg'></td></tr><tr><th>Good</th><th>Bad</th></tr></table>");
+    h.append("<table><tr><td><img src='mpii-tight1.jpg' height='144'></td><td><img src='mpii-tight2.jpg' height='144'></td><td><img src='mpii-tight3.jpg' height='144'></td></tr><tr><th>Good</th><th>Bad</th><th>Bad</th></tr></table>");
     h.append("<p>The boxes you draw must be tight. They boxes must fit around the object as close as possible. The loose annotation on the right would be rejected while the tight annotation on the left will be accepted.</p>");
 
     h.append("<h3>Entire Video is Labeled</h3>")
-    h.append("<img src='sequence1.jpg'> ");
-    h.append("<img src='sequence3.jpg'> ");
-    h.append("<img src='sequence4.jpg'><br>");
+    h.append("<img src='mpii-sequence1.png' height='144'> ");
+    h.append("<img src='mpii-sequence2.png' height='144'> ");
+    h.append("<img src='mpii-sequence3.png' height='144'><br>");
     h.append("<p>The entire video sequence must be labeled. When an object moves, you must update its position. A box must describe only one object. You should never change which object identity a particular box tracks.</p>");
 
     h.append("<h3>Disappearing and Reappearing Objects</h3>");
     h.append("<p>In order for your work to be accepted, you must correctly label objects as they enter and leave the scene. We want you to annotate the moment each object enters and leaves the scene. As it is often difficult to pinpoint the exact moment an object enters or leaves the scene, we allow some mistakes here, but only slightly!</p>");
 
-    h.append("<img src='entering1.png'> <img src='entering2.png'> <img src='entering3.png'> <img src='entering4.png'><br>");
+    h.append("<img src='mpii-entering1.png' height='120'> <img src='mpii-entering2.png' height='120'> <img src='mpii-entering3.png' height='120'> <img src='mpii-entering4.png' height='120'><br>");
 
-    h.append("<p>If one object enters another object (such as a person getting inside a car), you should mark the disappearing object as outside of the view frame. Likewise, you should start annotating an object the moment it steps out of the enclosing object.</p>");
+    h.append("<p>If one object enters another object (such as a cucumber is placed inside a fridge), you should mark the disappearing object as outside of the view frame. Likewise, you should start annotating an object the moment it steps out of the enclosing object.</p>");
 
-    h.append("<img src='outofcar1.png'> <img src='outofcar2.png'> <img src='outofcar3.png'> <br>");
+    h.append("<img src='mpii-leaving1.png' height='120'> <img src='mpii-leaving2.png' height='120'> <img src='mpii-leaving3.png' height='120'> <img src='mpii-leaving4.png' height='120'> <br>");
 
     h.append("<p>If an object disappears from the scene and the exact same object reappears later in the scene, you must mark that object as back inside the view frame. Do <em>not</em> draw a new object for its second appearance. Simply find the corresponding right-column rectangle and uncheck the <strong>Outside of view frame</strong> checkbox and position the box.</p>");
 
