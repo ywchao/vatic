@@ -454,7 +454,13 @@ function ui_submit(job, tracks)
         return;
     }
 
-    /*if (mturk_isassigned() && !mturk_isoffline())
+    if (tracks.tracks.length == 0)
+    {
+        alert("No anntotation provided. Please finish the task before you submit.")
+        return;
+    }
+
+    if (mturk_isassigned() && !mturk_isoffline())
     {
         if (!window.confirm("Are you sure you are ready to submit? Please " + 
                             "make sure that the entire video is labeled and " +
@@ -464,7 +470,7 @@ function ui_submit(job, tracks)
         {
             return;
         }
-    }*/
+    }
 
     var overlay = $('<div id="turkic_overlay"></div>').appendTo("#container");
     ui_disable();
