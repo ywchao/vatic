@@ -61,6 +61,17 @@ code
     padding : 0 5px;
 }
 
+a {
+    cursor : pointer;
+    color: #428bca;
+}
+
+a:hover, a:active {
+    cursor : pointer;
+    text-decoration : underline;
+    color: #2a6496;
+}
+
 #turkic_acceptfirst
 {
     background-color : #cd0a0a;
