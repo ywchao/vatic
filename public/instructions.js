@@ -11,7 +11,7 @@ function instructions(job, h)
     if (job.perobject > 0)
     {
         var amount = Math.floor(job.perobject * 100);
-        str += "<li>We will pay you <strong>" + amount + "&cent; for each object</strong> you annotate.</li>";
+        str += "<li>If necessary, we will pay you <strong>" + amount + "&cent; for each extra object</strong> you annotate after the first one.</li>";
     }
     if (job.completion > 0)
     {
@@ -41,7 +41,7 @@ function instructions(job, h)
 
     if (job.perobject > 0)
     {
-        h.append("<p>Once you have reached the end, you should rewind by pressing the rewind button (next to Play) and repeat this process for every object of interest. You are welcome to annotate multiple objects each playthrough. We will pay you a bonus for every object that you annotate.</p>");
+        h.append("<p>Once you have reached the end, you should rewind by pressing the rewind button (next to Play) and repeat this process for every object of interest. In most cases, there is only one object that needs to be annotated. If it is necessary to annotate more than one object (for instance, you are asked to annotate onions and there are two onions), you will be compensate with a <strong>" + amount + "&cent; bonus</strong> for each extra object you annotate.</p>");
     }
     else
     {
@@ -67,7 +67,7 @@ function instructions(job, h)
 
     if (job.perobject > 0)
     {
-        h.append("<p>Every object of interest should be labeled for the entire video. The above work was accepted because every object of interest (cutting-boards in this example) has a box around it. An object is not labeled more than once. Even if the object does not move, you must label it. We will pay you a bonus for every object you annotate.</p>");
+        h.append("<p>Every object of interest should be labeled for the entire video. The above work was accepted because every object of interest (cutting-boards in this example) has a box around it. An object is not labeled more than once. Even if the object does not move, you must label it. We will pay you a bonus for every extra object you annotate after the first one.</p>");
     }
     else
     {
