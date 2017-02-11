@@ -23,6 +23,7 @@ import datetime, time
 import vision.pascal
 import itertools
 from xml.etree import ElementTree
+from turkic.api import CommunicationError
 
 @handler("Decompresses an entire video into frames")
 class extract(Command):
@@ -1106,6 +1107,86 @@ class sample(Command):
                 image.save("{0}/{1}-{2}.jpg".format(args.directory,
                                                     worker.id,
                                                     job.hitid))
+
+@handler("Approve or reject work")
+class approve(Command):
+    def setup(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--accept", action="append", default = [])
+        parser.add_argument("--reject", action="append", default = [])
+        parser.add_argument("--warn", action="append", default = [])
+        parser.add_argument("--limit", type=int, default = None)
+        return parser
+
+    def process(self, hit, acceptkeys, rejectkeys, warnkeys, rejectrsns):
+        replacement = None
+        if hit.istraining:
+            # Approve training HITs automatically
+            hit.accept()
+        if hit.assignmentid in acceptkeys:
+            hit.accept()
+        elif hit.assignmentid in warnkeys:
+            hit.warn()
+            replacement = hit.invalidate()
+        elif hit.assignmentid in rejectkeys:
+            reason = rejectrsns[rejectkeys.index(hit.assignmentid)]
+            hit.reject(reason)
+            replacement = hit.invalidate()
+        return replacement
+
+    def __call__(self, args):
+        acceptkeys = []
+        rejectkeys = []
+        warnkeys = []
+
+        for f in args.accept:
+            acceptkeys.extend(line.strip() for line in open(f))
+        for f in args.reject:
+            rejectkeys.extend(line.strip() for line in open(f))
+        for f in args.warn:
+            warnkeys.extend(line.strip() for line in open(f))
+
+        # Add reasons with format "assignment id, reason"
+        rejectrsns = ["" for _ in rejectkeys]
+        if rejectkeys and ", " in rejectkeys[0]:
+            rejectrsns = [line.split(", ")[1] for line in rejectkeys]
+            rejectkeys = [line.split(", ")[0] for line in rejectkeys]
+
+        try:
+            query = session.query(turkic.models.HIT)
+            query = query.filter(turkic.models.HIT.completed == True)
+            query = query.filter(turkic.models.HIT.compensated == False)
+            query = query.join(turkic.models.HITGroup)
+            query = query.filter(turkic.models.HITGroup.offline == False)
+
+            if args.limit:
+                query = query.limit(args.limit)
+
+            for hit in query:
+                if not hit.check():
+                    print "WARNING: {0} failed payment check, ignoring".format(hit.hitid)
+                    continue
+                try:
+                    replacement = self.process(hit, acceptkeys, rejectkeys, warnkeys, rejectrsns)
+                    if hit.compensated:
+                        if hit.accepted:
+                            print "Accepted HIT {0}".format(hit.hitid)
+                        else:
+                            print "Rejected HIT {0}".format(hit.hitid)
+                        session.add(hit)
+                    if replacement:
+                        session.add(replacement)
+                        session.commit()
+                        replacement.publish()
+                        session.add(replacement)
+                        print "Respawned with {0}".format(replacement.hitid)
+                except CommunicationError as e:
+                    hit.compensated = True
+                    session.add(hit)
+                    print "Error with HIT {0}: {1}".format(hit.hitid, e)
+        finally:
+            session.commit()
+            session.close()
 
 @handler("Provides a URL to fix annotations during vetting")
 class find(Command):
