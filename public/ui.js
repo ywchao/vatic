@@ -483,12 +483,6 @@ function ui_submit(job, tracks)
         return;
     }
 
-    if (tracks.tracks.length == 0)
-    {
-        alert("No anntotation provided. Please finish the task before you submit.")
-        return;
-    }
-
     if (mturk_isassigned() && !mturk_isoffline())
     {
         if (!window.confirm("Are you sure you are ready to submit? Please " + 
