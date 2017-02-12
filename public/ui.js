@@ -29,7 +29,7 @@ function ui_setup(job)
 
     $("<table>" + 
         "<tr>" +
-            "<td><div id='instructionsbutton' class='button'>Instructions</div><div id='instructions'>Annotate every object, even stationary and obstructed objects, for the entire video.</td>" +
+            "<td><div id='instructionsbutton' class='button'>Instructions</div><div id='instructions'>Annotate every human body joint for the entire video.</td>" +
             "<td><div id='topbar'></div></td>" +
         "</tr>" +
         "<tr>" +
@@ -64,7 +64,7 @@ function ui_setup(job)
     $("#bottombar").append("<div class='button' id='playbutton'>Play</div> ");
 
     $("#topbar").append("<div id='newobjectcontainer'>" +
-        "<div class='button' id='newobjectbutton'>New Object</div></div>");
+        "<div class='button' id='newobjectbutton'>New Joint</div></div>");
 
     $("<div id='objectcontainer'></div>").appendTo("#sidebar");
 
@@ -83,8 +83,8 @@ function ui_setup(job)
 
     $("#advancedoptions").append(
     "<input type='checkbox' id='annotateoptionshideboxes'>" +
-    "<label for='annotateoptionshideboxes'>Hide Boxes?</label> " +
-    "<input type='checkbox' id='annotateoptionshideboxtext'>" +
+    "<label for='annotateoptionshideboxes'>Hide Circles?</label> " +
+    "<input type='checkbox' id='annotateoptionshideboxtext' checked='checked'>" +
     "<label for='annotateoptionshideboxtext'>Hide Labels?</label> ");
 
     $("#advancedoptions").append(
@@ -543,8 +543,8 @@ function ui_submit_failedvalidation()
     h.append("<p>Please review the instructions, double check your annotations, and submit again. Remember:</p>");
 
     var str = "<ul>";
-    str += "<li>You must label every object.</li>";
-    str += "<li>You must draw your boxes as tightly as possible.</li>";
+    str += "<li>You must label every joint.</li>";
+    str += "<li>You must click on the joints as precise as possible.</li>";
     str += "</ul>";
 
     h.append(str);
