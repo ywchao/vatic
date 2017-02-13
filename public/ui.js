@@ -43,6 +43,33 @@ function ui_setup(job)
               "<td><div id='advancedoptions'></div></td>" +
               "<td><div id='submitbar'></div></td>" +
           "</tr>" +
+        "<tr>" +
+            "<td>" +
+                "<table>" +
+                    "<tr>" +
+                        "<td>" +
+                            "<div id='instructions' style='width:420px'><strong>Keyboard Shortcuts</strong>" +
+                                "<ul>" +
+                                    "<li><code>n</code> creates a new object</li>" +
+                                    "<li><code>t</code> toggles play/pause on the video</li>" +
+                                    "<li><code>r</code> rewinds the video to the start</li>" +
+                                    "<li><code>h</code> hides/shows the boxes</li>" +
+                                    "<li><code>d</code> jump the video forward a bit</li>" +
+                                    "<li><code>f</code> jump the video backward a bit</li>" +
+                                    "<li><code>v</code> step the video forward a tiny bit</li>" +
+                                    "<li><code>c</code> step the video backward a tiny bit</li>" +
+                                "</ul>" +
+                            "</div>" +
+                        "</td>" +
+                        "<td>" +
+                            "<div id='instructions'><strong>Joints of Interest</strong>" +
+                                "<div style='margin-top: 10px'><img src='body_joint_fig.jpg' width='256'></div>" +
+                            "<div>" +
+                        "</td>" +
+                    "</tr>" +
+                "</table>" +
+            "</td>" +
+        "</tr>" +
       "</table>").appendTo(screen).css("width", "100%");
 
 
@@ -104,6 +131,13 @@ function ui_setup(job)
     "</div>");
 
     $("#submitbar").append("<div id='submitbutton' class='button'>Submit HIT</div>");
+
+    $("#shortcutlist").hide();
+    $("#shortcutpointer").click(function(){
+        $("#shortcutlist").toggle();
+        if ($("#shortcutlist").is(':visible')) { $("#shortcutpointer").text('Click to collapse') };
+        if ($("#shortcutlist").is(':hidden')) { $("#shortcutpointer").text('Click to expand') };
+    });
 
     if (mturk_isoffline())
     {
