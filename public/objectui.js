@@ -406,8 +406,7 @@ function TrackObject(job, player, container, color)
 
     this.setupdetails = function()
     {
-        this.details.append("<input type='checkbox' id='trackobject" + this.id + "lost'> <label for='trackobject" + this.id + "lost'>Outside of view frame</label><br>");
-        this.details.append("<input type='checkbox' id='trackobject" + this.id + "occluded'> <label for='trackobject" + this.id + "occluded'>Occluded or obstructed</label><br>");
+        this.details.append("<input type='checkbox' id='trackobject" + this.id + "invisible'> <label for='trackobject" + this.id + "invisible'>Out of frame or occluded</label><br>");
 
         for (var i in this.job.attributes[this.track.label])
         {
@@ -439,36 +438,22 @@ function TrackObject(job, player, container, color)
         }
 
 
-        $("#trackobject" + this.id + "lost").click(function() {
+        $("#trackobject" + this.id + "invisible").click(function() {
             me.player.pause();
 
-            var outside = $(this).is(":checked");
-            me.track.setoutside(outside);
+            var invisible = $(this).is(":checked");
+            // a cleaner fix is to merge outside and occluded into one variable in track
+            me.track.setoutside(invisible);
+            me.track.setocclusion(invisible);
             me.track.notifyupdate();
 
-            if (outside)
+            if (invisible)
             {
-                eventlog("markoutside", "Mark object outside");
+                eventlog("markoutside", "Mark object invisible");
             }
             else
             {
-                eventlog("markoutside", "Mark object inside");
-            }
-        });
-        $("#trackobject" + this.id + "occluded").click(function() {
-            me.player.pause();
-
-            var occlusion = $(this).is(":checked");
-            me.track.setocclusion(occlusion);
-            me.track.notifyupdate();
-
-            if (occlusion)
-            {
-                eventlog("markocclusion", "Mark object as occluded");
-            }
-            else
-            {
-                eventlog("markocclusion", "Mark object as not occluded");
+                eventlog("markoutside", "Mark object visible");
             }
         });
 
@@ -513,8 +498,10 @@ function TrackObject(job, player, container, color)
     this.updatecheckboxes = function()
     {
         var e = this.track.estimate(this.player.frame);
-        $("#trackobject" + this.id + "lost").attr("checked", e.outside);
-        $("#trackobject" + this.id + "occluded").attr("checked", e.occluded);
+        if (e.outside != e.occluded) {
+            console.error("Assertion failed: outside == occluded");
+        }
+        $("#trackobject" + this.id + "invisible").attr("checked", e.outside);
 
         for (var i in this.job.attributes[this.track.label])
         {
