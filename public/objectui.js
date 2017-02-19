@@ -69,7 +69,7 @@ function TrackObjectUI(button, container, videoframe, job, player, tracks)
     {
         console.log("Finished new track object");
 
-        ui_enable();
+        ui_enable(this.tracks);
         tracks.drawingnew(false);
 
         this.objects.push(this.currentobject);
@@ -86,8 +86,6 @@ function TrackObjectUI(button, container, videoframe, job, player, tracks)
 
         this.tracks.dim(false);
         this.currentobject.track.highlight(false);
-
-        this.button.button("option", "disabled", false);
 
         this.counter++;
     }
@@ -117,6 +115,8 @@ function TrackObjectUI(button, container, videoframe, job, player, tracks)
 
         obj.initialize(this.counter, track, this.tracks);
         obj.finalize(label);
+
+        this.button.button("option", "disabled", true);
 
         for (var i = 0; i < attributes.length; i++)
         {
@@ -359,7 +359,7 @@ function TrackObject(job, player, container, color)
         this.track.label = labelid;
 
         this.headerdetails = $("<div style='float:right;'></div>").appendTo(this.handle);
-        this.header = $("<p class='trackobjectheader'><strong>" + this.job.labels[this.label] + " " + (this.id + 1) + "</strong></p>").appendTo(this.handle).hide().slideDown();
+        this.header = $("<p class='trackobjectheader'><strong>" + this.job.labels[this.label] + "</strong></p>").appendTo(this.handle).hide().slideDown();
         //this.opencloseicon = $('<div class="ui-icon ui-icon-triangle-1-e"></div>').prependTo(this.header);
         this.details = $("<div class='trackobjectdetails'></div>").appendTo(this.handle).hide();
 
@@ -383,7 +383,7 @@ function TrackObject(job, player, container, color)
 
     this.updateboxtext = function()
     {
-        var str = "<strong>" + this.job.labels[this.label] + " " + (this.id + 1) + "</strong>";
+        var str = "<strong>" + this.job.labels[this.label] + "</strong>";
 
         var count = 0;
         for (var i in this.job.attributes[this.track.label])
@@ -485,6 +485,7 @@ function TrackObject(job, player, container, color)
             if (window.confirm("Delete the " + me.job.labels[me.label] + " " + (me.id + 1) + " track? If the object just left the view screen, click the \"Outside of view frame\" check box instead."))
             {
                 me.remove();
+                $("#newobjectbutton").button("option", "disabled", false);
                 eventlog("removeobject", "Deleted an object");
             }
         });

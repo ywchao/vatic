@@ -148,7 +148,7 @@ function ui_setupbuttons(job, player, tracks)
 {
     $("#instructionsbutton").click(function() {
         player.pause();
-        ui_showinstructions(job); 
+        ui_showinstructions(job, tracks);
     }).button({
         icons: {
             primary: "ui-icon-newwin"
@@ -513,7 +513,7 @@ function ui_submit(job, tracks)
                 {
                     note.remove();
                     overlay.remove();
-                    ui_enable();
+                    ui_enable(tracks);
                     console.log("Validation failed!");
                     ui_submit_failedvalidation();
                 }
@@ -542,7 +542,7 @@ function ui_submit(job, tracks)
             window.setTimeout(function() {
                 note.remove();
                 overlay.remove();
-                ui_enable();
+                ui_enable(tracks);
             }, 1000);
         }
         else
@@ -611,7 +611,7 @@ function ui_submit_failedvalidation()
     }).wrap("<div style='text-align:center;padding:5x 0;' />");
 }
 
-function ui_showinstructions(job)
+function ui_showinstructions(job, tracks)
 {
     console.log("Popup instructions");
 
@@ -629,21 +629,23 @@ function ui_showinstructions(job)
         icons: {
             primary: "ui-icon-circle-close"
         }
-    }).click(ui_closeinstructions);
+    }).click(function() {
+        ui_closeinstructions(tracks)
+    });
 
     instructions(job, h)
 
     ui_disable();
 }
 
-function ui_closeinstructions()
+function ui_closeinstructions(tracks)
 {
     console.log("Popdown instructions");
     $("#turkic_overlay").remove();
     $("#instructionsdialog").remove();
     eventlog("instructions", "Popdown instructions");
 
-    ui_enable();
+    ui_enable(tracks);
 }
 
 function ui_disable()
@@ -662,11 +664,11 @@ function ui_disable()
     console.log("UI disabled with count = " + ui_disabled);
 }
 
-function ui_enable()
+function ui_enable(tracks)
 {
     if (--ui_disabled == 0)
     {
-        $("#newobjectbutton").button("option", "disabled", false);
+        $("#newobjectbutton").button("option", "disabled", typeof tracks !== "undefined" && tracks.tracks.length > 0);
         $("#playbutton").button("option", "disabled", false);
         $("#rewindbutton").button("option", "disabled", false);
         $("#submitbutton").button("option", "disabled", false);
