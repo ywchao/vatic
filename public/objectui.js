@@ -147,13 +147,8 @@ function TrackObjectUI(button, container, videoframe, job, player, tracks)
             me.stopdrawing(position);
         });
 
-        var html = "<p style=margin-bottom:-0.2cm><strong>Objects of intereset</strong></p><p>In this video, please track all of these objects:</p>";
-        html += "<ul>";
-        for (var i in this.job.labels)
-        {
-            html += "<li>" + this.job.labels[i] + "</li>";
-        }
-        html += "</ul>";
+        var html = "<p style=margin-bottom:-0.2cm><strong>Object of intereset</strong></p><p>In this video, please track this object:</p>";
+        html += "<p style='text-align:center'><strong>" + Object.values(this.job.labels)[0] + "</strong></p>"
 
         this.instructions = $(html).appendTo(this.container);
     }
@@ -285,7 +280,7 @@ function TrackObject(job, player, container, color)
 
     this.statedraw = function()
     {
-        var html = "<p>Draw a box around one of these objects:</p>"; 
+        var html = "<p>Draw a box around the below object that is being held or used by the person:</p>";
 
         html += "<ul>";
         for (var i in this.job.labels)
@@ -293,7 +288,6 @@ function TrackObject(job, player, container, color)
             html += "<li>" + this.job.labels[i] + "</li>";
         }
         html += "</ul>";
-        html += "<p>Do not annotate the same object twice.</p>";
 
         this.drawinst = $("<div>" + html + "</div>").appendTo(this.handle);
         this.drawinst.hide().slideDown();

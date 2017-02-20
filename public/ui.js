@@ -29,7 +29,7 @@ function ui_setup(job)
 
     $("<table>" + 
         "<tr>" +
-            "<td><div id='instructionsbutton' class='button'>Instructions</div><div id='instructions'>Annotate every object of interest, even stationary and obstructed objects, for the entire video.</td>" +
+            "<td><div id='instructionsbutton' class='button'>Instructions</div><div id='instructions'>Annotate the <strong>" + Object.values(job.labels)[0] + "</strong> that the person is <strong>holding</strong> or <strong>using</strong> for the entire video.</td>" +
             "<td><div id='topbar'></div></td>" +
         "</tr>" +
         "<tr>" +
@@ -45,8 +45,28 @@ function ui_setup(job)
           "</tr>" +
         "<tr>" +
             "<td>" +
-                "<div id='instructions'><strong>Keyboard Shortcuts</strong> &nbsp; <a id='shortcutpointer'>Click to expand</a>" +
-                    "<table id='shortcutlist'>" +
+                "<div id='instructions'><strong>Important Rules</strong>" +
+                    "<ul>" +
+                        "<li>If you see <strong>multiple instances</strong> of the object, put the box <strong>only</strong> around <strong>the one instance</strong> that the person is <strong>holding</strong> or <strong>using</strong>.</li>" +
+                            "<table style='margin-top:10px;margin-bottom:10px;margin-left:20px'>" +
+                                "<tr>" +
+                                    "<td width='230px'><img src='mpii-rules-001.png' width='225'></td>" +
+                                    "<td width='230px'><img src='mpii-rules-002.png' width='225'></td>" +
+                                    "<td width='230px'><img src='mpii-rules-003.png' width='225'></td>" +
+                                "</tr>" +
+                            "</table>" +
+                        "<li>If the person is <strong>holding</strong> or <strong>using</strong> <strong>multiple instances</strong>, or it is <strong>difficult to distinguish between instances</strong>, make the box to enclose <strong>all the instances</strong> being <strong>held</strong> or <strong>used</strong>.</li>" +
+                            "<table style='margin-top:10px;margin-bottom:10px;margin-left:20px'>" +
+                                "<tr>" +
+                                    "<td width='230px'><img src='mpii-rules-004.png' width='225'></td>" +
+                                    "<td width='230px'><img src='mpii-rules-005.png' width='225'></td>" +
+                                    "<td width='230px'><img src='mpii-rules-006.png' width='225'></td>" +
+                                "</tr>" +
+                            "</table>" +
+                    "</ul>" +
+                "</div>" +
+                "<div id='instructions'><strong>Keyboard Shortcuts</strong>" +
+                    "<table>" +
                         "<tr>" +
                             "<td><ul>" +
                                 "<li><code>n</code> creates a new object</li>" +
@@ -128,13 +148,6 @@ function ui_setup(job)
     "</div>");
 
     $("#submitbar").append("<div id='submitbutton' class='button'>Submit HIT</div>");
-
-    $("#shortcutlist").hide();
-    $("#shortcutpointer").click(function(){
-        $("#shortcutlist").toggle();
-        if ($("#shortcutlist").is(':visible')) { $("#shortcutpointer").text('Click to collapse') };
-        if ($("#shortcutlist").is(':hidden')) { $("#shortcutpointer").text('Click to expand') };
-    });
 
     if (mturk_isoffline())
     {
