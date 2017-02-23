@@ -681,7 +681,16 @@ function ui_enable(tracks)
 {
     if (--ui_disabled == 0)
     {
-        $("#newobjectbutton").button("option", "disabled", typeof tracks !== "undefined" && tracks.tracks.length > 0);
+        var disable = false
+        if (typeof tracks !== "undefined")
+        {
+            for (var i in tracks.tracks)
+            {
+                disable = disable || !tracks.tracks[i].deleted;
+            }
+        }
+
+        $("#newobjectbutton").button("option", "disabled", disable);
         $("#playbutton").button("option", "disabled", false);
         $("#rewindbutton").button("option", "disabled", false);
         $("#submitbutton").button("option", "disabled", false);
