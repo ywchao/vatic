@@ -69,25 +69,15 @@ function TrackObjectUI(button, container, videoframe, job, player, tracks)
     {
         console.log("Finished new track object");
 
-        ui_enable();
+        ui_enable(this.job);
         tracks.drawingnew(false);
 
         this.objects.push(this.currentobject);
 
         this.tracks.draggable(true);
-        if ($("#annotateoptionsresize:checked").size() == 0)
-        {
-            this.tracks.resizable(true);
-        }
-        else
-        {
-            this.tracks.resizable(false);
-        }
 
         this.tracks.dim(false);
         this.currentobject.track.highlight(false);
-
-        this.button.button("option", "disabled", false);
 
         this.counter++;
     }
@@ -104,7 +94,8 @@ function TrackObjectUI(button, container, videoframe, job, player, tracks)
 
         function convert(box)
         {
-            return new Position(box[0], box[1], box[2], box[3],
+            // MySQL database currently only stores unsigned integers for box.
+            return new Position(box[2] - 15, box[3] - 15, box[2], box[3],
                                 box[6], box[5]);
         }
 
@@ -117,6 +108,13 @@ function TrackObjectUI(button, container, videoframe, job, player, tracks)
 
         obj.initialize(this.counter, track, this.tracks);
         obj.finalize(label);
+
+        this.job.selected[label] = true;
+
+        if (this.job.selected.every(Boolean))
+        {
+            this.button.button("option", "disabled", true);
+        }
 
         for (var i = 0; i < attributes.length; i++)
         {
@@ -326,8 +324,11 @@ function TrackObject(job, player, container, color)
             var html = "<p>What type of object did you just annotate?</p>";
             for (var i in job.labels)
             {
-                var id = "classification" + this.id + "_" + i;
-                html += "<div class='label'><input type='radio' name='classification" + this.id + "' id='" + id + "'> <label for='" + id + "'>" + job.labels[i] + "</label></div>";
+                if (job.selected[i] == false)
+                {
+                    var id = "classification" + this.id + "_" + i;
+                    html += "<div class='label'><input type='radio' name='classification" + this.id + "' id='" + id + "'> <label for='" + id + "'>" + job.labels[i] + "</label></div>";
+                }
             }
 
             this.classifyinst = $("<div>" + html + "</div>").appendTo(this.handle);
@@ -343,6 +344,7 @@ function TrackObject(job, player, container, color)
                     var id = "classification" + me.id + "_" + i;
                     if ($("#" + id + ":checked").size() > 0)
                     {
+                        me.job.selected[i] = true;
                         me.finalize(i);
                         me.statefolddown();
                         break;
@@ -359,7 +361,7 @@ function TrackObject(job, player, container, color)
         this.track.label = labelid;
 
         this.headerdetails = $("<div style='float:right;'></div>").appendTo(this.handle);
-        this.header = $("<p class='trackobjectheader'><strong>" + this.job.labels[this.label] + " " + (this.id + 1) + "</strong></p>").appendTo(this.handle).hide().slideDown();
+        this.header = $("<p class='trackobjectheader'><strong>" + this.job.labels[this.label] + "</strong></p>").appendTo(this.handle).hide().slideDown();
         //this.opencloseicon = $('<div class="ui-icon ui-icon-triangle-1-e"></div>').prependTo(this.header);
         this.details = $("<div class='trackobjectdetails'></div>").appendTo(this.handle).hide();
 
@@ -383,7 +385,7 @@ function TrackObject(job, player, container, color)
 
     this.updateboxtext = function()
     {
-        var str = "<strong>" + this.job.labels[this.label] + " " + (this.id + 1) + "</strong>";
+        var str = "<strong>" + this.job.labels[this.label] + "</strong>";
 
         var count = 0;
         for (var i in this.job.attributes[this.track.label])
@@ -482,9 +484,11 @@ function TrackObject(job, player, container, color)
         this.headerdetails.append("<div style='float:right;'><div class='ui-icon ui-icon-image' id='trackobject" + this.id + "tooltip' title='Show preview of track'></div></div>");
 
         $("#trackobject" + this.id + "delete").click(function() {
-            if (window.confirm("Delete the " + me.job.labels[me.label] + " " + (me.id + 1) + " track? If the object just left the view screen, click the \"Outside of view frame\" check box instead."))
+            if (window.confirm("Delete the " + me.job.labels[me.label] + " track? If the object just left the view screen, click the \"Outside of view frame\" check box instead."))
             {
                 me.remove();
+                me.job.selected[me.label] = false;
+                $("#newobjectbutton").button("option", "disabled", false);
                 eventlog("removeobject", "Deleted an object");
             }
         });
@@ -614,6 +618,7 @@ function TrackObject(job, player, container, color)
         });
         this.tooltip.hide();
         var boundingbox = $("<div class='boxtooltipboundingbox boundingbox'></div>").appendTo(this.tooltip);
+        var center = $('<div class="ccenter"></div>').appendTo(boundingbox);
 
         var annotation = 0;
         var update = function() {
@@ -685,7 +690,20 @@ function TrackObject(job, player, container, color)
                 left: bx + "px",
                 width: (bw-4) + "px",
                 height: (bh-4) + "px",
-                borderColor: me.color[0]
+                borderColor: me.color[0],
+                borderRadius: "50%"
+            });
+
+            center.css({
+                position: "absolute",
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                marginLeft: "-3px",
+                marginTop: "-3px",
+                top: "50%",
+                left: "50%",
+                backgroundColor: me.color[0],
             });
         }
 

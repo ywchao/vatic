@@ -81,11 +81,8 @@ function BoxDrawer(container)
         {
             if (!this.drawing)
             {
-                this.startdrawing(xc, yc);
-            }
-            else
-            {
-                this.finishdrawing(xc, yc);
+                this.startdrawing(xc - 7.5, yc - 7.5);
+                this.finishdrawing(xc + 7.5, yc + 7.5);
             }
         }
     }
@@ -508,27 +505,27 @@ function Track(player, color, position)
         var height = this.player.job.height;
         var pos = this.pollposition();
 
-        if (pos.xtl > width)
+        if (pos.xtl > width - 1 - pos.width/2)
         {
-            pos = new Position(width - pos.width, pos.ytl, width, pos.ybr);
+            pos = new Position(width - 1 - pos.width/2, pos.ytl, width - 1 + pos.width/2, pos.ybr);
         }
-        if (pos.ytl > height)
+        if (pos.ytl > height - 1 - pos.height/2)
         {
-            pos = new Position(pos.xtl, height - pos.height, pos.xbr, height);
+            pos = new Position(pos.xtl, height - 1 - pos.height/2, pos.xbr, height - 1 + pos.height/2);
         }
-        if (pos.xbr < 0)
+        if (pos.xbr < pos.width/2)
         {
-            pos = new Position(0, pos.ytl, pos.width, pos.ybr);
+            pos = new Position(0 - pos.width/2, pos.ytl, 0 + pos.width/2, pos.ybr);
         }
-        if (pos.ybr < 0)
+        if (pos.ybr < pos.height/2)
         {
-            pos = new Position(pos.xtl, 0, pos.xbr, pos.height);
+            pos = new Position(pos.xtl, 0 - pos.height/2, pos.xbr, 0 + pos.height/2);
         }
 
-        var xtl = Math.max(pos.xtl, 0);
-        var ytl = Math.max(pos.ytl, 0); 
-        var xbr = Math.min(pos.xbr, width - 1);
-        var ybr = Math.min(pos.ybr, height - 1);
+        var xtl = Math.max(pos.xtl, 0 - pos.width/2);
+        var ytl = Math.max(pos.ytl, 0 - pos.height/2);
+        var xbr = Math.min(pos.xbr, width - 1 + pos.width/2);
+        var ybr = Math.min(pos.ybr, height - 1 + pos.height/2);
 
         var fpos = new Position(xtl, ytl, xbr, ybr);
         fpos.occluded = pos.occluded;
@@ -673,12 +670,10 @@ function Track(player, color, position)
         if (value)
         {
             this.handle.draggable("option", "disabled", true);
-            this.handle.resizable("option", "disabled", true);
         }
         else
         {
             this.handle.draggable("option", "disabled", !this.candrag);
-            this.handle.resizable("option", "disabled", !this.canresize);
         }
 
         if (value)
@@ -700,39 +695,17 @@ function Track(player, color, position)
         {
             this.handle = $('<div class="boundingbox"><div class="boundingboxtext"></div></div>');
             this.handle.css("border-color", this.color);
+            this.handle.css("border-radius", "50%");
             var fill = $('<div class="fill"></div>').appendTo(this.handle);
             fill.css("background-color", this.color);
+            var center = $('<div class="ccenter"></div>').appendTo(this.handle);
+            center.css("background-color", this.color);
             this.player.handle.append(this.handle);
 
             this.handle.children(".boundingboxtext").hide().css({
                 "border-color": this.color,
                 //"color": this.color
                 });
-
-            this.handle.resizable({
-                handles: "n,w,s,e",
-                autoHide: true,
-                ghost: true, /* need to fix this bug soon */
-                start: function() {
-                    player.pause();
-                    me.notifystartupdate();
-                    //me.triggerinteract();
-                    for (var i in me.onmouseover)
-                    {
-                        me.onmouseover[i]();
-                    }
-                },
-                stop: function() {
-                    me.fixposition();
-                    me.recordposition();
-                    me.notifyupdate();
-                    eventlog("resizable", "Resize a box");
-                    me.highlight(false);
-                },
-                resize: function() {
-                    me.highlight(true);
-                }
-            });
 
             this.handle.draggable({
                 start: function() {
@@ -804,6 +777,17 @@ function Track(player, color, position)
             width: (position.width - this.htmloffset) + "px",
             height: (position.height - this.htmloffset) + "px"
         });
+
+        this.handle.children(".ccenter").css({
+            position: "absolute",
+            width: "6px",
+            height: "6px",
+            borderRadius: "50%",
+            marginLeft: "-3px",
+            marginTop: "-3px",
+            top: "50%",
+            left: "50%",
+        });
     }
 
     this.triggerinteract = function() 
@@ -844,15 +828,6 @@ function Track(player, color, position)
         }
 
         this.canresize = value;
-
-        if (value && !this.locked &&!this.drawingnew)
-        {
-            this.handle.resizable("option", "disabled", false);
-        }
-        else
-        {
-            this.handle.resizable("option", "disabled", true);
-        }
     }   
 
     this.visible = function(value)

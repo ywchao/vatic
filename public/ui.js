@@ -82,8 +82,6 @@ function ui_setup(job)
     $("#advancedoptions").hide();
 
     $("#advancedoptions").append(
-    "<input type='checkbox' id='annotateoptionsresize'>" +
-    "<label for='annotateoptionsresize'>Disable Resize?</label> " +
     "<input type='checkbox' id='annotateoptionshideboxes'>" +
     "<label for='annotateoptionshideboxes'>Hide Boxes?</label> " +
     "<input type='checkbox' id='annotateoptionshideboxtext'>" +
@@ -211,20 +209,6 @@ function ui_setupbuttons(job, player, tracks)
         eventlog("speedcontrol", "FPS = " + player.fps + " and delta = " + player.playdelta);
     });
 
-    $("#annotateoptionsresize").button().click(function() {
-        var resizable = $(this).attr("checked") ? false : true;
-        tracks.resizable(resizable);
-
-        if (resizable)
-        {
-            eventlog("disableresize", "Objects can be resized");
-        }
-        else
-        {
-            eventlog("disableresize", "Objects can not be resized");
-        }
-    });
-
     $("#annotateoptionshideboxes").button().click(function() {
         var visible = !$(this).attr("checked");
         tracks.visible(visible);
@@ -315,11 +299,6 @@ function ui_setupkeyboardshortcuts(job, player)
 
 }
 
-function ui_canresize()
-{
-    return !$("#annotateoptionsresize").attr("checked"); 
-}
-
 function ui_areboxeshidden()
 {
     return $("#annotateoptionshideboxes").attr("checked");
@@ -394,7 +373,7 @@ function ui_setupclickskip(job, player, tracks, objectui)
             $("#newobjectbutton").button("option", "disabled", false);
             $("#playbutton").button("option", "disabled", false);
             tracks.draggable(true);
-            tracks.resizable(ui_canresize());
+            tracks.resizable(false);
             tracks.recordposition();
             objectui.enable();
         }
@@ -484,7 +463,7 @@ function ui_submit(job, tracks)
                 {
                     note.remove();
                     overlay.remove();
-                    ui_enable();
+                    ui_enable(job);
                     console.log("Validation failed!");
                     ui_submit_failedvalidation();
                 }
@@ -513,7 +492,7 @@ function ui_submit(job, tracks)
             window.setTimeout(function() {
                 note.remove();
                 overlay.remove();
-                ui_enable();
+                ui_enable(job);
             }, 1000);
         }
         else
@@ -600,21 +579,23 @@ function ui_showinstructions(job)
         icons: {
             primary: "ui-icon-circle-close"
         }
-    }).click(ui_closeinstructions);
+    }).click(function() {
+        ui_closeinstructions(job)
+    });
 
     instructions(job, h)
 
     ui_disable();
 }
 
-function ui_closeinstructions()
+function ui_closeinstructions(job)
 {
     console.log("Popdown instructions");
     $("#turkic_overlay").remove();
     $("#instructionsdialog").remove();
     eventlog("instructions", "Popdown instructions");
 
-    ui_enable();
+    ui_enable(job);
 }
 
 function ui_disable()
@@ -633,11 +614,11 @@ function ui_disable()
     console.log("UI disabled with count = " + ui_disabled);
 }
 
-function ui_enable()
+function ui_enable(job)
 {
     if (--ui_disabled == 0)
     {
-        $("#newobjectbutton").button("option", "disabled", false);
+        $("#newobjectbutton").button("option", "disabled", job.selected.every(Boolean));
         $("#playbutton").button("option", "disabled", false);
         $("#rewindbutton").button("option", "disabled", false);
         $("#submitbutton").button("option", "disabled", false);

@@ -13,6 +13,7 @@ function Job(data)
     this.blowradius = null;
     this.thisid = null;
     this.labels = null;
+    this.selected = null;
 
     this.frameurl = function(i)
     {
@@ -39,6 +40,12 @@ function job_import(data)
     job.labels = data["labels"];
     job.attributes = data["attributes"];
     job.training = parseInt(data["training"]);
+
+    job.selected = new Array();
+    for (var i in job.labels)
+    {
+        job.selected[i] = false;
+    }
 
     console.log("Job configured!");
     console.log("  Slug: " + job.slug);
