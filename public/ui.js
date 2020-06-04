@@ -43,6 +43,9 @@ function ui_setup(job)
               "<td><div id='advancedoptions'></div></td>" +
               "<td><div id='submitbar'></div></td>" +
           "</tr>" +
+          "<tr>" +
+              "<td><div id='bottominstructions'></div></td>" +
+          "</tr>" +
       "</table>").appendTo(screen).css("width", "100%");
 
 
@@ -104,6 +107,26 @@ function ui_setup(job)
     "</div>");
 
     $("#submitbar").append("<div id='submitbutton' class='button'>Submit HIT</div>");
+
+    $("#bottominstructions").append(
+    "<table>" +
+        "<tr>" +
+            "<td>" +
+                "<div id='instructions' style='width:316px'><strong>Keyboard Shortcuts</strong>" +
+                    "<ul>" +
+                        "<li><code>n</code> creates a new object</li>" +
+                        "<li><code>t</code> toggles play/pause on the video</li>" +
+                        "<li><code>r</code> rewinds the video to the start</li>" +
+                        "<li><code>h</code> hides/shows the boxes</li>" +
+                        "<li><code>d</code> jump the video forward a bit</li>" +
+                        "<li><code>f</code> jump the video backward a bit</li>" +
+                        "<li><code>v</code> step the video forward a tiny bit</li>" +
+                        "<li><code>c</code> step the video backward a tiny bit</li>" +
+                    "</ul>" +
+                "</div>" +
+            "</td>" +
+        "</tr>" +
+    "</table>");
 
     if (mturk_isoffline())
     {
