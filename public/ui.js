@@ -272,11 +272,11 @@ function ui_setupkeyboardshortcuts(job, player)
             var skip = 0;
             if (keycode == 44 || keycode == 100)
             {
-                skip = job.skip > 0 ? -job.skip : -10;
+                skip = job.skip > 0 ? -job.skip : -5;
             }
             else if (keycode == 46 || keycode == 102)
             {
-                skip = job.skip > 0 ? job.skip : 10;
+                skip = job.skip > 0 ? job.skip : 5;
             }
             else if (keycode == 62 || keycode == 118)
             {
