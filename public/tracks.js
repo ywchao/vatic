@@ -1086,7 +1086,7 @@ function Journal(start, blowradius)
             if (itemtime == null || t > itemtime)
             {
                 item = this.annotations[t];
-                itemtime = t;
+                itemtime = parseInt(t);
             }
         }
         return item;
