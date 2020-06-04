@@ -84,7 +84,7 @@ function ui_setup(job)
     $("#advancedoptions").append(
     "<input type='checkbox' id='annotateoptionshideboxes'>" +
     "<label for='annotateoptionshideboxes'>Hide Boxes?</label> " +
-    "<input type='checkbox' id='annotateoptionshideboxtext'>" +
+    "<input type='checkbox' id='annotateoptionshideboxtext' checked='checked'>" +
     "<label for='annotateoptionshideboxtext'>Hide Labels?</label> ");
 
     $("#advancedoptions").append(
