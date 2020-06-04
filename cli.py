@@ -105,6 +105,7 @@ class load(LoadCommand):
         parser.add_argument("slug")
         parser.add_argument("location")
         parser.add_argument("labels", nargs="+")
+        parser.add_argument('--height', type=int, default = None)
         parser.add_argument("--length", type=int, default = 300)
         parser.add_argument("--overlap", type=int, default = 20)
         parser.add_argument("--skip", type=int, default = 0)
@@ -140,6 +141,10 @@ class load(LoadCommand):
         return "video, annotation, computer, vision"
 
     def __call__(self, args, group):
+        # update HITGroup height: should have done this in turkic/cli.py
+        if args.height:
+            group.height = args.height
+
         print "Checking integrity..."
 
         # read first frame to get sizes
