@@ -408,8 +408,7 @@ function TrackObject(job, player, container, color)
 
     this.setupdetails = function()
     {
-        this.details.append("<input type='checkbox' id='trackobject" + this.id + "lost'> <label for='trackobject" + this.id + "lost'>Outside of view frame</label><br>");
-        this.details.append("<input type='checkbox' id='trackobject" + this.id + "occluded'> <label for='trackobject" + this.id + "occluded'>Occluded or obstructed</label><br>");
+        this.details.append("<input type='checkbox' id='trackobject" + this.id + "invisible'> <label for='trackobject" + this.id + "invisible'>Out of frame or occluded</label><br>");
 
         for (var i in this.job.attributes[this.track.label])
         {
@@ -441,36 +440,22 @@ function TrackObject(job, player, container, color)
         }
 
 
-        $("#trackobject" + this.id + "lost").click(function() {
+        $("#trackobject" + this.id + "invisible").click(function() {
             me.player.pause();
 
-            var outside = $(this).is(":checked");
-            me.track.setoutside(outside);
+            var invisible = $(this).is(":checked");
+            // TODO(ywchao): merge outside and occluded into one variable in track
+            me.track.setoutside(invisible);
+            me.track.setocclusion(invisible);
             me.track.notifyupdate();
 
-            if (outside)
+            if (invisible)
             {
-                eventlog("markoutside", "Mark object outside");
+                eventlog("markoutside", "Mark object invisible");
             }
             else
             {
-                eventlog("markoutside", "Mark object inside");
-            }
-        });
-        $("#trackobject" + this.id + "occluded").click(function() {
-            me.player.pause();
-
-            var occlusion = $(this).is(":checked");
-            me.track.setocclusion(occlusion);
-            me.track.notifyupdate();
-
-            if (occlusion)
-            {
-                eventlog("markocclusion", "Mark object as occluded");
-            }
-            else
-            {
-                eventlog("markocclusion", "Mark object as not occluded");
+                eventlog("markoutside", "Mark object visible");
             }
         });
 
@@ -484,7 +469,7 @@ function TrackObject(job, player, container, color)
         this.headerdetails.append("<div style='float:right;'><div class='ui-icon ui-icon-image' id='trackobject" + this.id + "tooltip' title='Show preview of track'></div></div>");
 
         $("#trackobject" + this.id + "delete").click(function() {
-            if (window.confirm("Delete the " + me.job.labels[me.label] + " track? If the object just left the view screen, click the \"Outside of view frame\" check box instead."))
+            if (window.confirm("Delete the " + me.job.labels[me.label] + " track? If the object just left the view screen, click the \"Out of frame or occluded\" check box instead."))
             {
                 me.remove();
                 me.job.selected[me.label] = false;
@@ -516,8 +501,10 @@ function TrackObject(job, player, container, color)
     this.updatecheckboxes = function()
     {
         var e = this.track.estimate(this.player.frame);
-        $("#trackobject" + this.id + "lost").attr("checked", e.outside);
-        $("#trackobject" + this.id + "occluded").attr("checked", e.occluded);
+        if (e.outside != e.occluded) {
+            console.error("Assertion failed: outside == occluded");
+        }
+        $("#trackobject" + this.id + "invisible").attr("checked", e.outside);
 
         for (var i in this.job.attributes[this.track.label])
         {
@@ -733,8 +720,7 @@ function TrackObject(job, player, container, color)
     {
         if (this.ready)
         {
-            $("#trackobject" + this.id + "lost").attr("disabled", true);
-            $("#trackobject" + this.id + "occluded").attr("disabled", true);
+            $("#trackobject" + this.id + "invisible").attr("disabled", true);
         }
     }
 
@@ -742,8 +728,7 @@ function TrackObject(job, player, container, color)
     {
         if (this.ready)
         {
-            $("#trackobject" + this.id + "lost").attr("disabled", false);
-            $("#trackobject" + this.id + "occluded").attr("disabled", false);
+            $("#trackobject" + this.id + "invisible").attr("disabled", false);
         }
     }
 
