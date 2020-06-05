@@ -146,6 +146,7 @@ function TrackObjectUI(button, container, videoframe, job, player, tracks)
         });
 
         var html = "<p>In this image, please label all these joints if visible:</p>";
+        html += "<p><strong>R</strong>: right hand / <strong>L</strong>: left hand</p>";
         html += "<ul>";
         for (var i in this.job.labels)
         {
