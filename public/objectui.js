@@ -408,8 +408,6 @@ function TrackObject(job, player, container, color)
 
     this.setupdetails = function()
     {
-        this.details.append("<input type='checkbox' id='trackobject" + this.id + "invisible'> <label for='trackobject" + this.id + "invisible'>Out of frame or occluded</label><br>");
-
         for (var i in this.job.attributes[this.track.label])
         {
             this.details.append("<input type='checkbox' id='trackobject" + this.id + "attribute" + i + "'> <label for='trackobject" + this.id + "attribute" + i +"'>" + this.job.attributes[this.track.label][i] + "</label><br>");

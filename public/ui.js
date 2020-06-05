@@ -62,10 +62,6 @@ function ui_setup(job)
 
     $("#annotatescreen").css("width", (playerwidth + 205) + "px");
 
-    $("#bottombar").append("<div id='playerslider'></div>");
-    $("#bottombar").append("<div class='button' id='rewindbutton'>Rewind</div> ");
-    $("#bottombar").append("<div class='button' id='playbutton'>Play</div> ");
-
     $("#topbar").append("<div id='newobjectcontainer'>" +
         "<div class='button' id='newobjectbutton'>New Object</div></div>");
 
@@ -90,22 +86,6 @@ function ui_setup(job)
     "<input type='checkbox' id='annotateoptionshideboxtext' checked='checked'>" +
     "<label for='annotateoptionshideboxtext'>Hide Labels?</label> ");
 
-    $("#advancedoptions").append(
-    "<div id='speedcontrol'>" +
-    "<input type='radio' name='speedcontrol' " +
-        "value='5,1' id='speedcontrolslower'>" +
-    "<label for='speedcontrolslower'>Slower</label>" +
-    "<input type='radio' name='speedcontrol' " +
-        "value='15,1' id='speedcontrolslow'>" +
-    "<label for='speedcontrolslow'>Slow</label>" +
-    "<input type='radio' name='speedcontrol' " +
-        "value='30,1' id='speedcontrolnorm' checked='checked'>" +
-    "<label for='speedcontrolnorm'>Normal</label>" +
-    "<input type='radio' name='speedcontrol' " +
-        "value='90,1' id='speedcontrolfast'>" +
-    "<label for='speedcontrolfast'>Fast</label>" +
-    "</div>");
-
     $("#submitbar").append("<div id='submitbutton' class='button'>Submit HIT</div>");
 
     $("#bottominstructions").append(
@@ -115,13 +95,7 @@ function ui_setup(job)
                 "<div id='instructions' style='width:316px'><strong>Keyboard Shortcuts</strong>" +
                     "<ul>" +
                         "<li><code>n</code> creates a new object</li>" +
-                        "<li><code>t</code> toggles play/pause on the video</li>" +
-                        "<li><code>r</code> rewinds the video to the start</li>" +
                         "<li><code>h</code> hides/shows the boxes</li>" +
-                        "<li><code>d</code> jump the video forward a bit</li>" +
-                        "<li><code>f</code> jump the video backward a bit</li>" +
-                        "<li><code>v</code> step the video forward a tiny bit</li>" +
-                        "<li><code>c</code> step the video backward a tiny bit</li>" +
                     "</ul>" +
                 "</div>" +
             "</td>" +
