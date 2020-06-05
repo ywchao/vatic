@@ -92,11 +92,25 @@ function ui_setup(job)
     "<table>" +
         "<tr>" +
             "<td>" +
+                "<div id='instructions' style='width:316px'><strong>Examples</strong>" +
+                    "<ul>" +
+                        "<li><a href='https://35.173.232.62:8001/?id=1&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 1</a></li>" +
+                        "<li><a href='https://35.173.232.62:8001/?id=2&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 2</a></li>" +
+                        "<li><a href='https://35.173.232.62:8001/?id=3&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 3</a></li>" +
+                    "</ul>" +
+                "</div>" +
+            "</td>" +
+            "<td>" +
                 "<div id='instructions' style='width:316px'><strong>Keyboard Shortcuts</strong>" +
                     "<ul>" +
                         "<li><code>n</code> creates a new joint</li>" +
                         "<li><code>h</code> hides/shows the circles</li>" +
                     "</ul>" +
+                "</div>" +
+            "</td>" +
+            "<td>" +
+                "<div id='instructions' style='width:316px'><strong>Joints of Interest</strong>" +
+                    "<div style='margin-top: 10px'><img src='dycb-joints.png' width='300'></div>" +
                 "</div>" +
             "</td>" +
         "</tr>" +
