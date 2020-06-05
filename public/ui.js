@@ -29,7 +29,7 @@ function ui_setup(job)
 
     $("<table>" + 
         "<tr>" +
-            "<td><div id='instructionsbutton' class='button'>Instructions</div><div id='instructions'>Annotate every object, even stationary and obstructed objects, for the entire video.</td>" +
+            "<td><div id='instructionsbutton' class='button'>Instructions</div><div id='instructions'>Annotate every visible human hand joint for the image.</td>" +
             "<td><div id='topbar'></div></td>" +
         "</tr>" +
         "<tr>" +
@@ -63,7 +63,7 @@ function ui_setup(job)
     $("#annotatescreen").css("width", (playerwidth + 205) + "px");
 
     $("#topbar").append("<div id='newobjectcontainer'>" +
-        "<div class='button' id='newobjectbutton'>New Object</div></div>");
+        "<div class='button' id='newobjectbutton'>New Joint</div></div>");
 
     $("<div id='objectcontainer'></div>").appendTo("#sidebar");
 
@@ -82,7 +82,7 @@ function ui_setup(job)
 
     $("#advancedoptions").append(
     "<input type='checkbox' id='annotateoptionshideboxes'>" +
-    "<label for='annotateoptionshideboxes'>Hide Boxes?</label> " +
+    "<label for='annotateoptionshideboxes'>Hide Circles?</label> " +
     "<input type='checkbox' id='annotateoptionshideboxtext' checked='checked'>" +
     "<label for='annotateoptionshideboxtext'>Hide Labels?</label> ");
 
@@ -94,8 +94,8 @@ function ui_setup(job)
             "<td>" +
                 "<div id='instructions' style='width:316px'><strong>Keyboard Shortcuts</strong>" +
                     "<ul>" +
-                        "<li><code>n</code> creates a new object</li>" +
-                        "<li><code>h</code> hides/shows the boxes</li>" +
+                        "<li><code>n</code> creates a new joint</li>" +
+                        "<li><code>h</code> hides/shows the circles</li>" +
                     "</ul>" +
                 "</div>" +
             "</td>" +
@@ -433,7 +433,7 @@ function ui_submit(job, tracks)
     if (mturk_isassigned() && !mturk_isoffline())
     {
         if (!window.confirm("Are you sure you are ready to submit? Please " + 
-                            "make sure that the entire video is labeled and " +
+                            "make sure that the image is labeled and " +
                             "your annotations are tight.\n\nTo submit, " +
                             "press OK. Otherwise, press Cancel to keep " +
                             "working."))
@@ -540,8 +540,8 @@ function ui_submit_failedvalidation()
     h.append("<p>Please review the instructions, double check your annotations, and submit again. Remember:</p>");
 
     var str = "<ul>";
-    str += "<li>You must label every object.</li>";
-    str += "<li>You must draw your boxes as tightly as possible.</li>";
+    str += "<li>You must label every visible joint.</li>";
+    str += "<li>You must click on the joints as precise as possible.</li>";
     str += "</ul>";
 
     h.append(str);
