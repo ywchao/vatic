@@ -112,6 +112,11 @@ function ui_setup(job)
     "<table>" +
         "<tr>" +
             "<td>" +
+                "<div id='instructions' style='width:316px'><strong>How to get this done fast?</strong>" +
+                    "<ul>" +
+                        "<li><a href='https://www.youtube.com/embed/L3MorohY_bA' target='_blank' rel='noopener noreferrer'>Pro Walkthrough: MUST VIEW!</a></li>" +
+                    "</ul>" +
+                "</div>" +
                 "<div id='instructions' style='width:316px'><strong>Examples</strong>" +
                     "<ul>" +
                         "<li><code></code><a href='https://35.173.232.62:8100/?id=1&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 1</a></li>" +
@@ -141,7 +146,7 @@ function ui_setup(job)
             "</td>" +
             "<td>" +
                 "<div id='instructions' style='width:316px'><strong>Joints of Interest</strong>" +
-                    "<div style='margin-top:10px'><img src='dycb-joints.png' width='300'></div>" +
+                    "<div style='margin-top: 10px'><img src='dycb-joints.png' width='300'></div>" +
                 "</div>" +
             "</td>" +
         "</tr>" +
