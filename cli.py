@@ -129,7 +129,7 @@ class load(LoadCommand):
         return "Video annotation"
 
     def description(self, args):
-        return "Draw boxes around objects moving around in a video."
+        return "Click on human hand joints moving around in a video."
 
     def cost(self, args):
         return 0.05
@@ -138,7 +138,7 @@ class load(LoadCommand):
         return 7200 * 3
 
     def keywords(self, args):
-        return "video, annotation, computer, vision"
+        return "video, annotation, computer, vision, human hand joints"
 
     def __call__(self, args, group):
         # update HITGroup height: should have done this in turkic/cli.py
