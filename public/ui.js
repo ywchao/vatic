@@ -109,6 +109,12 @@ function ui_setup(job)
     $("#submitbar").append("<div id='submitbutton' class='button'>Submit HIT</div>");
 
     $("#bottominstructions").append(
+    "<div id='instructions' style='margin-bottom:20px'>" +
+        "<strong>Additional Instructions</strong>" +
+        "<ul>" +
+            "<li style='margin-bottom:5px'>We have seen some submitted HITs with inaccurate <strong>Wrist</strong> location. Please check the examples below if you are unsure.</li>" +
+        "</ul>" +
+    "</div>" +
     "<table>" +
         "<tr>" +
             "<td>" +
@@ -146,7 +152,7 @@ function ui_setup(job)
             "</td>" +
             "<td>" +
                 "<div id='instructions' style='width:316px'><strong>Joints of Interest</strong>" +
-                    "<div style='margin-top: 10px'><img src='dycb-joints.png' width='300'></div>" +
+                    "<div style='margin-top:10px'><img src='dycb-joints.png' width='300'></div>" +
                 "</div>" +
             "</td>" +
         "</tr>" +
