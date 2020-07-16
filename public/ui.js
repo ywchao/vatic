@@ -134,6 +134,32 @@ function ui_setup(job)
     "<table>" +
         "<tr>" +
             "<td>" +
+                "<div id='instructions' style='width:316px'><strong>Examples</strong>" +a
+                    "<div>" +
+                        "<ul style='float:left'>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=1&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 1</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=2&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 2</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=3&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 3</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=4&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 4</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=5&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 5</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=6&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 6</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=7&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 7</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=8&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 8</a></li>" +
+                        "</ul>" +
+                        "<ul style='float:left'>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=9&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 9</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=10&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 10</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=11&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 11</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=12&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 12</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=13&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 13</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=14&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 14</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=15&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 15</a></li>" +
+                            "<li><code></code><a href='https://35.173.232.62:8200/?id=16&hitId=offline' target='_blank' rel='noopener noreferrer'>Example 16</a></li>" +
+                        "</ul>" +
+                    "</div>" +
+                "</div>" +
+            "</td>" +
+            "<td>" +
                 "<div id='instructions' style='width:316px'><strong>Keyboard Shortcuts</strong>" +
                     "<ul>" +
                         "<li><code>n</code> creates a new point</li>" +
