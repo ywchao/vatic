@@ -482,7 +482,7 @@ function ui_submit(job, tracks)
     {
         if (!window.confirm("Are you sure you are ready to submit? Please " + 
                             "make sure that the entire video is labeled and " +
-                            "your annotations are tight.\n\nTo submit, " +
+                            "your annotations are precise.\n\nTo submit, " +
                             "press OK. Otherwise, press Cancel to keep " +
                             "working."))
         {
