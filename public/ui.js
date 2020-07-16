@@ -29,7 +29,7 @@ function ui_setup(job)
 
     $("<table>" + 
         "<tr>" +
-            "<td><div id='instructionsbutton' class='button'>Instructions</div><div id='instructions'>Annotate two distinctive points on the surface of the picked-up object for the entire video. <strong>Please review the instructions below</strong>.</td>" +
+            "<td><div id='instructions'>Annotate two distinctive points on the surface of the picked-up object for the entire video. <strong>Please review the instructions below</strong>.</td>" +
             "<td><div id='topbar'></div></td>" +
         "</tr>" +
         "<tr>" +
@@ -109,6 +109,28 @@ function ui_setup(job)
     $("#submitbar").append("<div id='submitbutton' class='button'>Submit HIT</div>");
 
     $("#bottominstructions").append(
+    "<div id='instructions' style='margin-bottom:20px'>" +
+        "<strong>What You Should Do</strong> - MUST READ!" +
+        "<ul>" +
+            "<li style='margin-bottom:5px'>In this video you will see a person <strong>picking up a specific object</strong>. First play the video once and find out which object that is.</li>" +
+            "<li style='margin-bottom:5px'>Once you know which object is being picked-up, you need to <strong>find two distinctive points</strong> on that object's <strong>surface</strong>.</li>" +
+            "<ul>" +
+                "<li style='margin-bottom:5px'>A distinctive point should be a landmark point on the surface that can be <strong>easily identified and tracked</strong>.</li>" +
+                "<li style='margin-bottom:5px'>This can be <strong>a tip or corner point</strong> of the object, or <strong>a point on a printed pattern</strong> on the object's surface.</li>" +
+            "</ul>" +
+            "<li style='margin-bottom:5px'>Once you pick the points, you need to <strong>click on them</strong> and <strong>track them</strong> for the entire video. See the <strong>Pro Walkthrough</strong> below for how to interact with our tool.</li>" +
+        "</ul>" +
+    "</div>" +
+    "<div id='instructions' style='margin-bottom:20px'>" +
+        "<strong>Important Instructions</strong> - MUST READ!" +
+        "<ul>" +
+            "<li style='margin-bottom:5px'>A point on the object may become occluded during the pick-up. You should first try to pick points that are <strong>visible (non-occluded) throughout the entire video</strong>.</li>" +
+            "<li style='margin-bottom:5px'>If you cannot find points like that, then you should find points that are <strong>visible as much time as possible</strong> throughout the video. In this case, when a point becomes invisible, mark the <strong>Out of frame or occluded</strong> checkbox for the corresponding sidebar rectangle.</li>" +
+            "<li style='margin-bottom:5px'>Only if you cannot see the picked-up object at all at any moment in the video, you can submit without any annotation.</li>" +
+            "<li style='margin-bottom:5px'>Place your target circle  as precise as possible.</li>" +
+            "<li style='margin-bottom:5px'>We will hand review your work.</li>" +
+        "</ul>" +
+    "</div>" +
     "<table>" +
         "<tr>" +
             "<td>" +
