@@ -129,7 +129,7 @@ class load(LoadCommand):
         return "Video annotation"
 
     def description(self, args):
-        return "Draw boxes around objects moving around in a video."
+        return "Find distinctive points on objects surface and track them throughout a video."
 
     def cost(self, args):
         return 0.05

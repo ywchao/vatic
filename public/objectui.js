@@ -145,7 +145,7 @@ function TrackObjectUI(button, container, videoframe, job, player, tracks)
             me.stopdrawing(position);
         });
 
-        var html = "<p>In this video, please track all of these objects:</p>";
+        var html = "<p>In this video, please find and track these points on the surface of the picked-up object:</p>";
         html += "<ul>";
         for (var i in this.job.labels)
         {
@@ -283,7 +283,7 @@ function TrackObject(job, player, container, color)
 
     this.statedraw = function()
     {
-        var html = "<p>Draw a box around one of these objects:</p>"; 
+        var html = "<p>Click on one of the these points:</p>";
 
         html += "<ul>";
         for (var i in this.job.labels)
@@ -291,7 +291,7 @@ function TrackObject(job, player, container, color)
             html += "<li>" + this.job.labels[i].replace(/_/g, " ") + "</li>";
         }
         html += "</ul>";
-        html += "<p>Do not annotate the same object twice.</p>";
+        html += "<p>Do not annotate the same point twice.</p>";
 
         this.drawinst = $("<div>" + html + "</div>").appendTo(this.handle);
         this.drawinst.hide().slideDown();
@@ -321,7 +321,7 @@ function TrackObject(job, player, container, color)
         }
         else
         {
-            var html = "<p>What type of object did you just annotate?</p>";
+            var html = "<p>Which point did you just annotate?</p>";
             for (var i in job.labels)
             {
                 if (job.selected[i] == false)
@@ -469,7 +469,7 @@ function TrackObject(job, player, container, color)
         this.headerdetails.append("<div style='float:right;'><div class='ui-icon ui-icon-image' id='trackobject" + this.id + "tooltip' title='Show preview of track'></div></div>");
 
         $("#trackobject" + this.id + "delete").click(function() {
-            if (window.confirm("Delete the " + me.job.labels[me.label].replace(/_/g, " ") + " track? If the object just left the view screen, click the \"Out of frame or occluded\" check box instead."))
+            if (window.confirm("Delete the " + me.job.labels[me.label].replace(/_/g, " ") + " track? If the point just left the view screen, click the \"Out of frame or occluded\" check box instead."))
             {
                 me.remove();
                 me.job.selected[me.label] = false;

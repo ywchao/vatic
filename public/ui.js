@@ -29,7 +29,7 @@ function ui_setup(job)
 
     $("<table>" + 
         "<tr>" +
-            "<td><div id='instructionsbutton' class='button'>Instructions</div><div id='instructions'>Annotate every object, even stationary and obstructed objects, for the entire video.</td>" +
+            "<td><div id='instructionsbutton' class='button'>Instructions</div><div id='instructions'>Annotate two distinctive points on the surface of the picked-up object for the entire video. <strong>Please review the instructions below</strong>.</td>" +
             "<td><div id='topbar'></div></td>" +
         "</tr>" +
         "<tr>" +
@@ -67,7 +67,7 @@ function ui_setup(job)
     $("#bottombar").append("<div class='button' id='playbutton'>Play</div> ");
 
     $("#topbar").append("<div id='newobjectcontainer'>" +
-        "<div class='button' id='newobjectbutton'>New Object</div></div>");
+        "<div class='button' id='newobjectbutton'>New Point</div></div>");
 
     $("<div id='objectcontainer'></div>").appendTo("#sidebar");
 
@@ -86,7 +86,7 @@ function ui_setup(job)
 
     $("#advancedoptions").append(
     "<input type='checkbox' id='annotateoptionshideboxes'>" +
-    "<label for='annotateoptionshideboxes'>Hide Boxes?</label> " +
+    "<label for='annotateoptionshideboxes'>Hide Circles?</label> " +
     "<input type='checkbox' id='annotateoptionshideboxtext' checked='checked'>" +
     "<label for='annotateoptionshideboxtext'>Hide Labels?</label> ");
 
@@ -114,10 +114,10 @@ function ui_setup(job)
             "<td>" +
                 "<div id='instructions' style='width:316px'><strong>Keyboard Shortcuts</strong>" +
                     "<ul>" +
-                        "<li><code>n</code> creates a new object</li>" +
+                        "<li><code>n</code> creates a new point</li>" +
                         "<li><code>t</code> toggles play/pause on the video</li>" +
                         "<li><code>r</code> rewinds the video to the start</li>" +
-                        "<li><code>h</code> hides/shows the boxes</li>" +
+                        "<li><code>h</code> hides/shows the circles</li>" +
                         "<li><code>d</code> jump the video forward a bit</li>" +
                         "<li><code>f</code> jump the video backward a bit</li>" +
                         "<li><code>v</code> step the video forward a tiny bit</li>" +
@@ -566,8 +566,8 @@ function ui_submit_failedvalidation()
     h.append("<p>Please review the instructions, double check your annotations, and submit again. Remember:</p>");
 
     var str = "<ul>";
-    str += "<li>You must label every object.</li>";
-    str += "<li>You must draw your boxes as tightly as possible.</li>";
+    str += "<li>You must label every point.</li>";
+    str += "<li>You must click on your points as precise as possible.</li>";
     str += "</ul>";
 
     h.append(str);
